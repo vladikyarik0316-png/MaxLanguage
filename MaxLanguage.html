@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МАКС - Максимум возможностей</title>
+    <!-- Подключение шрифта и иконок -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0d0c11;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Сетка контейнера */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Шапка (Пилюля) */
+        header {
+            background-color: #1a1625;
+            border-radius: 50px;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo-icon {
+            background: #fff;
+            color: #1a1625;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 900;
+            border-bottom-left-radius: 5px; /* Форма логотипа */
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #a09db0;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ffffff;
+        }
+
+        nav a.web-version {
+            color: #5c7cff;
+        }
+
+        /* Мобильная кнопка скачать (по умолчанию скрыта на ПК) */
+        .mobile-download-top {
+            display: none;
+            background: #3d2b8c;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Основной контент */
+        main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 50px;
+            padding: 40px 0;
+        }
+
+        .content-left {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #4facfe 0%, #7b6cf6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #b3b3b3;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        /* Текст о недоступности перевода */
+        .warning-text {
+            font-size: 16px;
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 40px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        /* Кнопки загрузки */
+        .download-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            background-color: #241b4c;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: #2e2360;
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            font-size: 20px;
+        }
+
+        .btn-qr {
+            padding: 15px;
+        }
+
+        .btn-qr i {
+            font-size: 24px;
+        }
+
+        /* Телефон (Макет) */
+        .content-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            height: 650px;
+            background-color: #000;
+            border-radius: 40px;
+            border: 8px solid #222;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 100px rgba(88, 50, 255, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-notch {
+            width: 120px;
+            height: 25px;
+            background-color: #222;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1625 0%, #0d0c11 100%);
+            display: flex;
+            flex-direction: column;
+            padding-top: 40px;
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .app-image-container {
+            margin: 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #7b6cf6;
+            flex-grow: 1;
+            /* Заглушка вместо фото девушки */
+            background: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80') center/cover;
+        }
+        
+        .id-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #7b6cf6;
+            color: #7b6cf6;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .app-bottom-bar {
+            background-color: #1fc8db;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Адаптивность (Мобильная версия) */
+        @media (max-width: 1024px) {
+            h1 { font-size: 48px; }
+            .container { padding: 15px 20px; }
+            main { flex-direction: column; text-align: center; }
+            .content-left { display: flex; flex-direction: column; align-items: center; }
+            .download-buttons { justify-content: center; }
+            nav { display: none; } /* Скрываем десктопное меню на мобилках */
+            .mobile-download-top { display: block; width: 100%; } /* Показываем мобильную кнопку */
+            .phone-mockup { transform: scale(0.9); margin-top: -20px; }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 36px; }
+            .subtitle { font-size: 16px; }
+            .btn { width: 100%; justify-content: center; }
+            .phone-mockup { width: 100%; max-width: 300px; height: 550px; }
+            header { padding: 10px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">M</div>
+                МАКС
+            </div>
+            <nav>
+                <a href="#">Для бизнеса</a>
+                <a href="#">Для авторов</a>
+                <a href="#">Скачать приложение</a>
+                <a href="#">Цифровой ID</a>
+                <a href="#" class="web-version">Открыть веб-версию</a>
+            </nav>
+        </header>
+
+        <!-- Кнопка скачать сверху (видна только на телефонах) -->
+        <a href="https://max.ru/" class="mobile-download-top">
+            <i class="fa-solid fa-download"></i> Скачать приложение
+        </a>
+
+        <!-- Основной контент -->
+        <main>
+            <div class="content-left">
+                <h1><span class="gradient-text">Максимум</span><br>возможностей<br>для жизни</h1>
+                
+                <p class="subtitle">Быстрое и лёгкое приложение для общения<br>и решения повседневных задач</p>
+                
+                <!-- Текст о недоступности перевода -->
+                <div class="warning-text">
+                    <i class="fa-solid fa-circle-exclamation"></i> Функция перевода на данный момент недоступна
+                </div>
+
+                <!-- Кнопки скачивания (на ПК ведут на max.ru) -->
+                <div class="download-buttons">
+                    <a href="https://max.ru/" class="btn">
+                        <i class="fa-brands fa-apple"></i> Настроить для iPhone
+                    </a>
+                    <a href="https://max.ru/" class="btn">
+                        <i class="fa-solid fa-mobile-screen"></i> RuStore
+                    </a>
+                    <a href="https://max.ru/" class="btn">
+                        <i class="fa-brands fa-huawei"></i> AppGallery
+                    </a>
+                    <!-- Кнопка для компьютера ведет на указанную вами ссылку -->
+                    <a href="https://max.ru/" class="btn">
+                        <i class="fa-solid fa-desktop"></i> Для компьютера
+                    </a>
+                    <a href="https://max.ru/" class="btn btn-qr">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Телефон -->
+            <div class="content-right">
+                <div class="phone-mockup">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="app-header">
+                            <i class="fa-solid fa-xmark"></i>
+                            <span>Цифровой ID <i class="fa-solid fa-circle-check" style="color: #4facfe;"></i></span>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <div class="app-image-container">
+                            <div class="id-badge">ID</div>
+                        </div>
+                        <div class="app-bottom-bar">
+                            <span>Подтвердить<br>возраст</span>
+                            <i class="fa-solid fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
